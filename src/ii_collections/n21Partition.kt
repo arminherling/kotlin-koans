@@ -1,6 +1,7 @@
 package ii_collections
 
-fun example8() {
+fun example8()
+{
     val numbers = listOf(1, 3, -4, 2, -11)
 
     // The details (how multi-assignment works) will be explained later in the 'Conventions' task
@@ -10,7 +11,11 @@ fun example8() {
     negative == listOf(-4, -11)
 }
 
-fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set<Customer> {
+fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set<Customer>
+{
     // Return customers who have more undelivered orders than delivered
-    todoCollectionTask()
+    return this.customers.filter {
+        val (delivered, undelivered) = it.orders.partition { it.isDelivered }
+        undelivered.size > delivered.size
+    }.toSet()
 }
