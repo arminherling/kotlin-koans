@@ -2,6 +2,7 @@ package iii_conventions
 
 import util.TODO
 import util.doc25
+import java.lang.Comparable
 
 fun todoTask25(): Nothing = TODO(
     """
@@ -16,7 +17,5 @@ fun todoTask25(): Nothing = TODO(
 )
 
 fun task25(date1: MyDate, date2: MyDate): Boolean {
-    todoTask25()
-//    return date1 < date2
+    return date1 < date2
 }
-
