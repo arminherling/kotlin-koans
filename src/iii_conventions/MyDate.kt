@@ -13,6 +13,16 @@ data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int) : Comparab
     }
 }
 
+operator fun MyDate.plus(interval: TimeInterval): MyDate
+{
+    return this.addTimeIntervals(interval, 1)
+}
+
+operator fun MyDate.plus(repeatedInterval: RepeatedTimeInterval): MyDate
+{
+    return this.addTimeIntervals(repeatedInterval.interval, repeatedInterval.times)
+}
+
 operator fun MyDate.rangeTo(other: MyDate) = DateRange(this, other)
 
 enum class TimeInterval
@@ -29,11 +39,12 @@ class DateRange(override val start: MyDate, override val endInclusive: MyDate) :
         return super.contains(value);
     }
 
-    private var inRangeValue :MyDate = start
+    private var inRangeValue: MyDate = start
     override fun hasNext(): Boolean
     {
         return inRangeValue <= endInclusive
     }
+
     override fun next(): MyDate
     {
         val currentValue = inRangeValue
@@ -41,3 +52,8 @@ class DateRange(override val start: MyDate, override val endInclusive: MyDate) :
         return currentValue
     }
 }
+
+ class RepeatedTimeInterval(val interval: TimeInterval, val times: Int)
+
+operator fun TimeInterval.times(times: Int) = RepeatedTimeInterval(this, times)
+
